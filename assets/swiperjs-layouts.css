@@ -1,0 +1,90 @@
+/*
+ * Swiper Slider (SwiftyEdit plugin) - slide layout styles
+ *
+ * This file is what the plugin prints as an inline <style> block before the
+ * first slideshow on a page (comments and whitespace stripped). If your
+ * theme provides its own slide styles ("Theme provides its own slide layout
+ * styles" under Settings), copy this file into the theme and adjust it
+ * there. Markup reference: Help > For theme designers.
+ *
+ * Layout classes on .swiperjs-slide: swiperjs-layout--overlay | --card |
+ * --split | --text, plus .swiperjs-slide--no-image on every slide without an
+ * image (always for --text) - the caption then just stays in normal flow.
+ */
+
+/* ------------------------------------------------------------------
+ * Base (all layouts)
+ * ------------------------------------------------------------------ */
+
+/* Swiper gives .swiper-wrapper/.swiper-slide height:100% of .swiper, which
+ * resolves to nothing when .swiper has no defined height - the slider
+ * collapses to almost 0 and the arrows/pagination end up outside the
+ * visible area. Keep a height here (a slideshow's own "fixed height" field
+ * overrides it via inline style). */
+.swiperjs-wrap .swiper { height: 320px; }
+
+/* Background/text color follow the page (Bootstrap's body variables,
+ * otherwise transparent/inherited). Overridable per slideshow via the
+ * "extra CSS class" field and these two custom properties. */
+.swiperjs-slide {
+  position: relative;
+  overflow: hidden;
+  background: var(--swiperjs-slide-bg, var(--bs-body-bg, transparent));
+  color: var(--swiperjs-slide-color, var(--bs-body-color, inherit));
+}
+
+/* The link (or a plain div if the record has no link) is the slide's
+ * single inner flex container. */
+.swiperjs-slide-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.swiperjs-slide-image { display: block; width: 100%; object-fit: cover; }
+.swiperjs-slide-caption { flex: none; padding: 12px 16px; }
+.swiperjs-slide-title { margin: 0 0 4px; font-size: 1.1rem; }
+.swiperjs-slide-text { margin: 0; font-size: .9rem; opacity: .85; }
+
+/* ------------------------------------------------------------------
+ * Overlay - image fills the slide, caption on a dark gradient on top.
+ * White text instead of the theme colors, which have no guaranteed
+ * contrast against an arbitrary photo.
+ * ------------------------------------------------------------------ */
+.swiperjs-layout--overlay .swiperjs-slide-image { position: absolute; inset: 0; height: 100%; }
+.swiperjs-layout--overlay:not(.swiperjs-slide--no-image) .swiperjs-slide-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 16px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.45) 60%, transparent);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------
+ * Card - image on top, caption below.
+ * ------------------------------------------------------------------ */
+.swiperjs-layout--card .swiperjs-slide-image { flex: 1 1 auto; min-height: 0; }
+
+/* ------------------------------------------------------------------
+ * Split - image left, text right from 576px up, stacked like card below.
+ * 56px caption padding on the arrow side (Swiper's arrows are 44px wide,
+ * 10px from the edge), so they never cover any text.
+ * ------------------------------------------------------------------ */
+.swiperjs-layout--split .swiperjs-slide-image { flex: 1 1 auto; min-height: 0; }
+@media (min-width: 576px) {
+  .swiperjs-layout--split .swiperjs-slide-inner { flex-direction: row; }
+  .swiperjs-layout--split .swiperjs-slide-image { flex: 0 0 50%; width: 50%; height: 100%; }
+  .swiperjs-layout--split .swiperjs-slide-caption { flex: 1 1 0; align-self: center; padding: 16px 56px 16px 24px; }
+}
+
+/* ------------------------------------------------------------------
+ * Text only - no image, caption centered (56px side padding for the
+ * arrows, see split).
+ * ------------------------------------------------------------------ */
+.swiperjs-layout--text .swiperjs-slide-inner { justify-content: center; }
+.swiperjs-layout--text .swiperjs-slide-caption { padding: 24px 56px; text-align: center; }
+.swiperjs-layout--text .swiperjs-slide-title { font-size: 1.5rem; }

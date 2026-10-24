@@ -1,0 +1,31 @@
+{
+  "addon": {
+    "id": "swiperjs",
+    "name": "Swiper Slider",
+    "type": "plugin",
+    "version": "1.2.0",
+    "build": 3,
+    "author": "SwiftyEdit Developer Team",
+    "description": "Manage any number of Swiper.js slideshows and embed them via shortcode - using snippets, pages, blog posts or products as slide sources.",
+    "database": "swiperjs.sqlite3",
+    "update_url": "https://raw.githubusercontent.com/SwiftyEdit/swiperjs/main/info.json"
+  },
+  "versions": [
+    {
+      "version": "1.2.0",
+      "build": 3,
+      "requires_build": "26-0225",
+      "download_url": "https://github.com/SwiftyEdit/swiperjs/releases/download/v1.2.0/swiperjs-1.2.0.zip"
+    }
+  ],
+  "navigation": [
+    {
+      "text": "nav_overview",
+      "file": "start"
+    },
+    {
+      "text": "nav_settings",
+      "file": "settings"
+    }
+  ]
+}
